@@ -60,6 +60,23 @@ const MatrizProvider = ({ children }) => {
         return false;
     }
 
+    function llenarMatrizSecundaria(filaInicio, filaFin, columnaInicio, columnaFin) {
+        let arregloTemporal = arregloAleatorio();
+        for (let i = filaInicio; i < filaFin; i++) {
+            for (let j = columnaInicio; j < columnaFin; j++) {
+                while (matrizEspejo[i][j] === 0) {
+                    if (chequearFila(i, arregloTemporal[0])) {
+                        correrArreglo(arregloTemporal);
+                    } else if (chequearColumna(j, arregloTemporal[0])) {
+                        correrArreglo(arregloTemporal);
+                    } else {
+                        matrizEspejo[i][j] = arregloTemporal[0];
+                        arregloTemporal.shift();
+                    }
+                }
+            }
+        }
+    }
     //Matriz que se irá modificando poco a poco para finalmente igualarla a la matriz solución
     let matrizEspejo = [[0, 0, 0, 0, 0, 0, 0, 0, 0], //Fila 1
     [0, 0, 0, 0, 0, 0, 0, 0, 0], //Fila 2
@@ -99,16 +116,17 @@ const MatrizProvider = ({ children }) => {
     console.log(matrizEspejo);
 
     //Matriz B
-
-
-    let arregloFila = matrizEspejo[0];
-
-    if (arregloFila.includes(numero)){
-        console.log("Está el número: " + numero);
-    } else {
-        console.log("No está el número: " + numero);
-    }
-
+    llenarMatrizSecundaria(0, 3, 3, 6);
+    //Matriz D
+    llenarMatrizSecundaria(3, 6, 0, 3);
+    //Matriz F
+    llenarMatrizSecundaria(3, 6, 6, 9);
+    //Matriz H
+    llenarMatrizSecundaria(6, 9, 3, 6);
+    //Matriz C
+    llenarMatrizSecundaria(0, 3, 6, 9);
+    //Matriz G
+    llenarMatrizSecundaria(6, 9, 0, 3);
 
     return (
         <MatrizContext.Provider value={{ matriz }}>
