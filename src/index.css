@@ -5,3 +5,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+td{
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
